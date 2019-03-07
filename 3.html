@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+var urls = ['https://www.kkkk1000.com/images/getImgData/getImgDatadata.jpg', 'https://www.kkkk1000.com/images/getImgData/gray.gif', 'https://www.kkkk1000.com/images/getImgData/Particle.gif', 'https://www.kkkk1000.com/images/getImgData/arithmetic.png', 'https://www.kkkk1000.com/images/getImgData/arithmetic2.gif', 'https://www.kkkk1000.com/images/getImgData/getImgDataError.jpg', 'https://www.kkkk1000.com/images/getImgData/arithmetic.gif', 'https://www.kkkk1000.com/images/wxQrCode2.png'];
+function loadImg(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image()
+        img.onload = function () {
+            resolve();
+        }
+        img.onerror = reject
+        img.src = url
+    })
+};
+
+var count = 0;
+
+function bao(){
+    count++;
+    console.log("并发数:",count)
+    console.log(urls.length,"33333")
+    if(urls.length>0&&count<=3){
+        loadImg(urls.shift()).then(()=>{
+            count--
+            }).then(bao)
+    }
+}
+function async3(){
+    for(var i=0;i<3;i++){
+        bao();
+    }
+}
+async3()
+
+</script>
+</body>
+</html>
